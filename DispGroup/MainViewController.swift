@@ -21,13 +21,13 @@ class MainViewController: UIViewController {
     
     private lazy var buttonSameTime = {
         let button = UIButton()
-        button.setTitle("Show images simultaneously", for: .normal)
+        button.setTitle("Wait until all are downloaded", for: .normal)
         return button
     }()
     
     private lazy var buttonSingly = {
         let button = UIButton()
-        button.setTitle("Show images singly", for: .normal)
+        button.setTitle("Load pictures individually", for: .normal)
         return button
     }()
     
