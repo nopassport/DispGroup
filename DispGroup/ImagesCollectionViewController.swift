@@ -42,7 +42,7 @@ class ImagesCollectionViewController: UICollectionViewController {
     
     private func loadData() {
         guard typeLoading == .showSimultaneously else { return }
-        networking.loadImagesFrom(adresess: bigImages) { [unowned self] res in
+        networking.loadImagesFrom(addresses: addressesOfImage) { [unowned self] res in
             switch res {
             case .success(let images):
                 self.images = images
@@ -75,7 +75,7 @@ class ImagesCollectionViewController: UICollectionViewController {
         case .showSimultaneously:
             return images.count
         case .showSingly:
-            return bigImages.count
+            return addressesOfImage.count
         default: return 0
         }
     }
@@ -86,7 +86,7 @@ class ImagesCollectionViewController: UICollectionViewController {
         case .showSimultaneously:
             cell.set(image: images[indexPath.row])
         case .showSingly:
-            networking.loadImage(fromAdedress: bigImages[indexPath.row]) {
+            networking.loadImage(fromAddress: addressesOfImage[indexPath.row]) {
                 cell.set(image: $0)
             }
         default: break
@@ -100,7 +100,7 @@ class ImagesCollectionViewController: UICollectionViewController {
 
 
 
-let bigImages = [
+let addressesOfImage = [
 "https://images.pexels.com/photos/2246476/pexels-photo-2246476.jpeg",
 "https://images.pexels.com/photos/325185/pexels-photo-325185.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
 "https://images.pexels.com/photos/1408221/pexels-photo-1408221.jpeg",

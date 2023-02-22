@@ -9,8 +9,8 @@ import UIKit
 
 
 protocol NetworkingDelegate{
-    func loadImagesFrom(adresess: [String], compl: @escaping (Result<[UIImage], Error>) -> Void)
-    func loadImage(fromAdedress adress: String, compl: @escaping (UIImage?) -> Void)
+    func loadImagesFrom(addresses: [String], compl: @escaping (Result<[UIImage], Error>) -> Void)
+    func loadImage(fromAddress address: String, compl: @escaping (UIImage?) -> Void)
 }
 
 class Networking: NetworkingDelegate {
@@ -18,12 +18,12 @@ class Networking: NetworkingDelegate {
     private let custDispatch = DispatchQueue(label: "CustDis", qos: .utility)
     private let custDispGroup = DispatchGroup()
     
-    public func loadImagesFrom(adresess: [String], compl: @escaping (Result<[UIImage], Error>) -> Void) {
+    public func loadImagesFrom(addresses: [String], compl: @escaping (Result<[UIImage], Error>) -> Void) {
         var images = [UIImage]()
         
         custDispatch.async(group: custDispGroup) {
-            adresess.forEach{ adress in
-                if let url = URL(string: adress)   {
+            addresses.forEach{ address in
+                if let url = URL(string: address)   {
                     do {
                         let data = try Data(contentsOf: url)
                         guard let image = UIImage(data: data) else { return }
@@ -39,8 +39,8 @@ class Networking: NetworkingDelegate {
         }
     }
     
-    public func loadImage(fromAdedress adress: String, compl: @escaping (UIImage?) -> Void) {
-        guard let url = URL(string: adress) else { return }
+    public func loadImage(fromAddress address: String, compl: @escaping (UIImage?) -> Void) {
+        guard let url = URL(string: address) else { return }
         custDispatch.async {
             guard let data = try? Data(contentsOf: url) else { return }
             DispatchQueue.main.async {
